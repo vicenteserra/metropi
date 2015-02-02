@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  div(ng-app='metropi')
+    div(ng-controller='lecturasCtrl')
+      h3.
+        {{medida}}
+      div.progress
+        div.progress-bar(role='progressbar',aria-valuemin='0',aria-valuemax='100',aria-valuenow='{{medida}}',style='{{estilo}}')
+      button(ng-click='calibrar()').
+        Calibrar
+      button(ng-click='marcha()').
+        Marcha
+      button(ng-click='paro()').
+        Paro
+      button(ng-click='cierraprograma()').
+        Reiniciar aplicacion
+      button(ng-click='reinicia()').
+        Reiniciar server
+      button(ng-click='apaga()').
+        Apagar servidor
