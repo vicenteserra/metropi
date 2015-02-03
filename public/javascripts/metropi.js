@@ -5,11 +5,13 @@ var metropi = angular.module('metropi', []);
 metropi.controller('lecturasCtrl', function ($scope,$http) {
     $scope.medida=0;
     $scope.estilo='';
+    $scope.usec=0;
     $scope.calibrar=function(){
         $http.get('mpi/cal').error(function(data, status, headers, config) {
             console.log(data);
         }).success(function(data, status, headers, config) {
             //console.log(data);
+            $scope.usec=data.usec;
             if(data.power){
                 $scope.refresca();
             }
@@ -25,6 +27,7 @@ metropi.controller('lecturasCtrl', function ($scope,$http) {
         }).success(function(data, status, headers, config) {
             $scope.medir(data.med);
             if(data.power){
+
                 $scope.refresca();
             }
         })
@@ -78,6 +81,34 @@ metropi.controller('lecturasCtrl', function ($scope,$http) {
             if(data.power){
                 $scope.refresca();
             }
+        });
+    }
+    $scope.modocm=function(){
+        $http.get('mpi/cm').error(function(data, status, headers, config) {
+            console.log(data);
+        }).success(function(data, status, headers, config) {
+            //console.log(data);
+            if(data.power){
+                $scope.refresca();
+            }
+        });
+    }
+    $scope.modousec=function(){
+        $http.get('mpi/usec').error(function(data, status, headers, config) {
+            console.log(data);
+        }).success(function(data, status, headers, config) {
+            //console.log(data);
+            if(data.power){
+                $scope.refresca();
+            }
+        });
+    }
+    $scope.guardausec=function(){
+        $http.post('mpi/usec',{usec:$scope.usec}).error(function(data, status, headers, config) {
+            console.log(data);
+        }).success(function(data, status, headers, config) {
+            //console.log(data);
+            $scope.usec=data.usec;
         });
     }
 });
